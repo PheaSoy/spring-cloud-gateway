@@ -12,15 +12,15 @@ public class SpringCloudGatewayExampleApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudGatewayExampleApplication.class, args);
     }
-
-    @Bean
-    public RouteLocator myRoutes(RouteLocatorBuilder builder) {
-        return builder.routes()
-                .route(p -> p
-                        .path("/backend/**")
-                        .filters(f -> f.addRequestHeader("Hello", "World"))
-                        .uri("http://localhost:8089"))
-                .build();
-    }
+//
+//    @Bean
+//    public RouteLocator myRoutes(RouteLocatorBuilder builder) {
+//        return builder.routes()
+//                .route(p -> p
+//                        .path("/backend/**")
+//                        .filters(f -> f.addRequestHeader("Hello", "World"))
+//                        .uri("http://localhost:8089"))
+//                .build();
+//    }
 
 }

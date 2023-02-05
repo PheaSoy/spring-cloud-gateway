@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
-@Component
+//@Component
 public class MySampleFilter implements GlobalFilter {
 
 
@@ -29,7 +29,8 @@ public class MySampleFilter implements GlobalFilter {
                 .retrieve()
                 .bodyToMono(Map.class)
                 .flatMap(response -> {
-                    exchange.getRequest().mutate()
+                    exchange.getRequest()
+                            .mutate()
                             .header("adding_key", response.get("key").toString())
                             .build();
                     return chain.filter(exchange);

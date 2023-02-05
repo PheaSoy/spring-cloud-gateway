@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Component
 public class MyGlobalFilter implements GlobalFilter {
 
@@ -16,6 +18,10 @@ public class MyGlobalFilter implements GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         logger.info("Global filter is executing.");
+        exchange.getRequest()
+                .mutate()
+                .header("code", UUID.randomUUID().toString())
+                .build();
         return chain.filter(exchange);
     }
 
