@@ -21,5 +21,7 @@ public class APILog {
     private String correctionId;
     private String apiCode;
     private String traceId;
+    private String routeId;
+    private String routeUi;
 
 }

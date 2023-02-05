@@ -20,6 +20,7 @@ public class MyGlobalFilter implements GlobalFilter {
         logger.info("Global filter is executing.");
         exchange.getRequest()
                 .mutate()
+                .header("start_time", System.currentTimeMillis() + "")
                 .header("code", UUID.randomUUID().toString())
                 .build();
         return chain.filter(exchange);

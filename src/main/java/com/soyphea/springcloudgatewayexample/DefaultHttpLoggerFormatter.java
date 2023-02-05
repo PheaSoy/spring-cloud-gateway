@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.sleuth.Span;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -36,6 +37,7 @@ public class DefaultHttpLoggerFormatter  {
             executeTime = endTime - startTimeMs;
         }
         org.springframework.cloud.sleuth.Span span = exchange.getAttribute(Span.class.getName());
+        Route route = exchange.getAttribute(org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         var value = exchange.getResponse().getStatusCode().value();
         var code = exchange.getRequest().getHeaders().getFirst("code");
         APILog apiRequestJson = APILog.builder()
@@ -53,6 +55,8 @@ public class DefaultHttpLoggerFormatter  {
                 .channel(channel)
                 .apiCode(code)
                 .traceId(span.context().traceId())
+                .routeId(route.getId())
+                .routeUi(route.getUri().getPath())
                 .build();
         try {
             objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
