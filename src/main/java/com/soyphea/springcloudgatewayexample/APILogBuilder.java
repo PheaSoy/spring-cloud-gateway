@@ -1,12 +1,9 @@
 package com.soyphea.springcloudgatewayexample;
 
-import brave.Tracer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.sleuth.Span;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
@@ -18,6 +15,7 @@ public class APILogBuilder {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     public static APILog buildAPILog(ServerWebExchange exchange) {
+
         var headers = exchange.getRequest()
                 .getHeaders();
         String userId = headers.getFirst("cif");
@@ -38,7 +36,7 @@ public class APILogBuilder {
         var value = exchange.getResponse().getStatusCode().value();
         var code = exchange.getRequest().getHeaders().getFirst("code");
         return APILog.builder()
-                .status(value)
+                .responseCode(value)
                 .duration(executeTime + ".ms")
                 .clientId(clientId)
                 .deviceId(deviceId)
@@ -53,6 +51,7 @@ public class APILogBuilder {
                 .apiCode(code)
                 .traceId(span.context().traceId())
                 .routeId(route.getId())
+                .apiCode(code)
                 .build();
 
     }

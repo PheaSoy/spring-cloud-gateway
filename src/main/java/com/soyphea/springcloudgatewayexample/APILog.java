@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class APILog {
 
-    private int status;
+    private int responseCode;
     private String requestIp;
     private String userId;
     private String channel;
