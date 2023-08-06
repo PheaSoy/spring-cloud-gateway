@@ -3,23 +3,24 @@
 ## Filters
 ### Global filters
 
+Before you can execute the command http, please make sure you install [httpie](https://httpie.io/docs/cli/installation).
 ```shell
 http http://localhost:1234/actuator/gateway/globalfilters
 ```
 
 ### Factory filters
 ```shell
-http://localhost:1234/actuator/gateway/routefilters
+http http://localhost:1234/actuator/gateway/routefilters
 ```
 
 ## Routes
 
 ### All routes
 ```shell
-http://localhost:1234/actuator/gateway/routes
+http http://localhost:1234/actuator/gateway/routes
 ```
 
 ### Get route based on id
 ```shell
-http://localhost:1234/actuator/gateway/routes/backend-service
+http http://localhost:1234/actuator/gateway/routes/backend-service
 ```
